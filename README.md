@@ -36,13 +36,6 @@
 * 자바 코드 컨벤션을 지키면서 프로그래밍한다.
 * 반드시 TODO LIST를 READ ME에 작성한다.
 * commit은 기능단위로 commit을하고 github의 commit 규칙을 지킨다.
-* 모든 문자열의 원시값을 포장한다.
-* 일급 콜렉션을 사용한다.
-* 개행을 통해서 가독성을 늘린다.
 * 줄여쓰기를 하지 않는다. ex) search -> sel -> x
-* 모든 Entity는 작게 유지한다.
-* 2개 이상의 인스턴스 변수를 가진 클래스를 쓰지않는다.
-* 모든 파라미터는 3개이상 가지면 안된다. ex) findId(int a, int b, int c) -> x
-* java8의 lambda, stream을 적극 활용한다.
 * class, method, 변수, 상수의 naming 규칙을 반드시 지킨다.(코드컨벤션 확인)
 
