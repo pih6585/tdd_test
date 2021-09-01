@@ -2,21 +2,24 @@ package multiplication.controller;
 
 import java.util.List;
 
-import multiplication.service.MultipliceService;
+import multiplication.domain.Name;
+import multiplication.domain.Number;
+import multiplication.view.MultipliceInputView;
 
-public class MultipliceController {
+public class MultipliceController{
 
-	private final MultipliceService multipleService = new MultipliceService();
+	public void run() throws IllegalAccessException { new MultipliceInputView().printMultipleInputView(); }
 
-	public boolean playerCheck(String name){
-		return multipleService.playerCheck(name);
+	public void checkUserNameResult(String name) throws IllegalAccessException {
+		new Name(name);
 	}
 
-	public boolean numberCheck(int number){
-		return multipleService.numberCheck(number);
+	public void checkNumberRangeResult(String number) throws IllegalAccessException {
+		new Number(number);
 	}
 
-	public List<String> calculation(int number, int range){
-		return multipleService.multipliceValue(number, range);
+	public List<Integer> checkCalculationResult(String number, String range) throws IllegalAccessException {
+		return new Number(number).calculatorResult(number, range);
 	}
+
 }
