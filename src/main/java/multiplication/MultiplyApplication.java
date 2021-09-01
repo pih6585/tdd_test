@@ -2,12 +2,12 @@ package multiplication;
 
 import java.io.IOException;
 
-import multiplication.view.MultipleInputView;
+import multiplication.controller.MultipliceController;
 
 public class MultiplyApplication {
 
-	public static void main(String[] args) throws IOException {
-		MultipleInputView view = new MultipleInputView();
-		view.printMultipleInputView();
+	public static void main(String[] args) throws IllegalAccessException {
+		MultipliceController multipliceController = new MultipliceController();
+		multipliceController.run();
 	}
 }
