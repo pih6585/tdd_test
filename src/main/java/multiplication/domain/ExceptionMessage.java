@@ -9,4 +9,5 @@ public final class ExceptionMessage {
 	protected static final String NUMBER_ERROR_MESSAGE = "숫자만 입력할수 있습니다.";
 	public static final String OPERATOR_ERROR_MESSAGE = "올바른 연산자가 아닙니다.";
 	public static final String DIVISION_ERROR_MESSAGE = "0으로 나눗셈은 불가능 합니다.";
+
 }
