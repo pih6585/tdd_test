@@ -1,35 +1,25 @@
 package dice.view;
 
-import dice.domain.game.Dices;
-import dice.domain.game.Scores;
-import dice.domain.player.Names;
-import dice.domain.player.Number;
-import dice.domain.winner.Winners;
+import java.util.List;
+
+import dice.domain.PlayerScore;
 
 public class ResultView {
 
 	public static final String RESULT_MESSAGE = "실행결과";
 
-	public static void resultScore(Number number, Names names, Dices dices, Scores scores) {
+	public static void resultGameState(List<PlayerScore> scoreByPlayer) {
 		System.out.println(RESULT_MESSAGE);
-		for (int i = 0; i < number.getNumber(); i++) {
-			playerByScore(i, names, dices, scores);
+		for (int i = 0; i < scoreByPlayer.size(); i++) {
+			System.out.println(scoreByPlayer.get(i).getName() + " : " +
+				scoreByPlayer.get(i).getFirstDice() + " - " +
+				scoreByPlayer.get(i).getSecondDice() + " : " +
+				scoreByPlayer.get(i).getScore());
 		}
 	}
 
-	private static void playerByScore(int number, Names names, Dices dices, Scores scores) {
-		System.out.println(names.getNames().get(number).getName() + " : " +
-			dices.getDices().get(number).getFirstDice() + " - " +
-			dices.getDices().get(number).getSecondDice() + " : " +
-			scores.getScores().get(number).getScore());
-	}
-
-	public static void resultWinner(Winners winner) {
-		String winnerName = "";
-		for (int i = 0; i < winner.getWinners().size(); i++) {
-			winnerName += winner.getWinners().get(i).getName() + " ";
-		}
-		System.out.println("우승자는 " + winnerName + "입니다.");
+	public static void resultGameWinner(String winner) {
+		System.out.println("우승자는 " + winner + " 입니다.");
 	}
 
 }
