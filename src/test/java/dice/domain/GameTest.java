@@ -17,14 +17,14 @@ public class GameTest {
 	private static final int DICE_MAX_NUMBER = 6;
 	private static final int SCORE_MIN_NUMBER = 2;
 	private static final int SCORE_MAX_NUMBER = 12;
-	private List<PlayerScore> scoreByPlayer;
+	private List<Player> players;
 
 	@BeforeEach
 	public void testDataSetting() {
-		this.scoreByPlayer = Arrays.asList(
-			new PlayerScore("a", diceRoll(), diceRoll()),
-			new PlayerScore("b", diceRoll(), diceRoll()),
-			new PlayerScore("c", diceRoll(), diceRoll())
+		this.players = Arrays.asList(
+			new Player(new Name("a"), new Dice(diceRoll(), diceRoll())),
+			new Player(new Name("b"), new Dice(diceRoll(), diceRoll())),
+			new Player(new Name("c"), new Dice(diceRoll(), diceRoll()))
 		);
 	}
 
@@ -36,23 +36,23 @@ public class GameTest {
 	}
 
 	@Test
-	@DisplayName("참가자 점수 생성")
+	@DisplayName("참가자 주사위 합 생성")
 	public void createPlayerByScore() {
-		PlayerScore scoreByPlayer = new PlayerScore("a", diceRoll(), diceRoll());
-		assertThat(scoreByPlayer.getScore()).isBetween(SCORE_MIN_NUMBER, SCORE_MAX_NUMBER);
+		Player player = new Player(new Name("a"), new Dice(diceRoll(), diceRoll()));
+		assertThat(player.findDiceSum()).isBetween(SCORE_MIN_NUMBER, SCORE_MAX_NUMBER);
 	}
 
 	@Test
 	@DisplayName("참가자 가장높은 점수확인")
 	public void checkScoreMax() {
-		int scoreMax = getPlayerByScoreMax(scoreByPlayer);
+		int scoreMax = getPlayerByScoreMax(players);
 		assertThat(scoreMax).isBetween(SCORE_MIN_NUMBER, SCORE_MAX_NUMBER);
 	}
 
 	@Test
 	@DisplayName("우승자 확인")
 	public void checkWinner() {
-		String winner = getWinner(scoreByPlayer, getPlayerByScoreMax(scoreByPlayer));
+		String winner = getWinner(players, getPlayerByScoreMax(players));
 		assertThat(winner).isNotNull();
 	}
 
@@ -60,17 +60,17 @@ public class GameTest {
 		return new DiceResult().getDiceResult();
 	}
 
-	private static int getPlayerByScoreMax(List<PlayerScore> playerByScore) {
-		return playerByScore.stream()
-			.mapToInt(v -> v.getScore())
+	private static int getPlayerByScoreMax(List<Player> players) {
+		return players.stream()
+			.mapToInt(v -> v.findDiceSum())
 			.max()
 			.orElseThrow(RuntimeException::new);
 	}
 
-	private String getWinner(List<PlayerScore> scoreByPlayer, int scoreMax) {
-		return IntStream.range(0, scoreByPlayer.size())
-			.filter(i -> scoreByPlayer.get(i).getScore() == scoreMax)
-			.mapToObj(i -> scoreByPlayer.get(i).getName())
+	private String getWinner(List<Player> players, int scoreMax) {
+		return IntStream.range(0, players.size())
+			.filter(i -> players.get(i).findDiceSum() == scoreMax)
+			.mapToObj(i -> players.get(i).getName().getName())
 			.collect(Collectors.joining(","));
 	}
 }
