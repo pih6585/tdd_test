@@ -6,26 +6,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import dice.domain.Dice;
+import dice.domain.Name;
 import dice.domain.DiceResult;
-import dice.domain.PlayerScore;
+import dice.domain.Player;
 
 public class DiceService {
 
 	private static final int START_NUMBER = 0;
 
-	public static List<PlayerScore> diceGamePlay(List<String> names){
-		List<PlayerScore> scoreByPlayer = new ArrayList<>();
+	public static List<Player> diceGamePlay(List<Name> names){
+		List<Player> players = new ArrayList<>();
 		for(int i=START_NUMBER; i<names.size(); i++){
-			scoreByPlayer.add(new PlayerScore(names.get(i), diceRoll(), diceRoll()));
+			players.add(new Player(names.get(i), new Dice(diceRoll(), diceRoll())));
 		}
-		return Collections.unmodifiableList(scoreByPlayer);
+
+		return Collections.unmodifiableList(players);
 	}
 
-	public static String diceGameWinner(List<PlayerScore> scoreByPlayer){
-		int scoreMax = getPlayerByScoreMax(scoreByPlayer);
-		return IntStream.range(START_NUMBER, scoreByPlayer.size())
-			.filter(i -> scoreByPlayer.get(i).getScore() == scoreMax)
-			.mapToObj(i -> scoreByPlayer.get(i).getName())
+	public static String diceGameWinner(List<Player> players){
+		int scoreMax = getPlayerByScoreMax(players);
+		return IntStream.range(START_NUMBER, players.size())
+			.filter(i -> players.get(i).findDiceSum() == scoreMax)
+			.mapToObj(i -> players.get(i).getName().getName())
 			.collect(Collectors.joining(","));
 	}
 
@@ -33,11 +36,12 @@ public class DiceService {
 		return new DiceResult().getDiceResult();
 	}
 
-	private static int getPlayerByScoreMax(List<PlayerScore> scoreByPlayer){
-		return scoreByPlayer.stream()
-			.mapToInt(v -> v.getScore())
+	private static int getPlayerByScoreMax(List<Player> players){
+		return players.stream()
+			.mapToInt(v -> v.findDiceSum())
 			.max()
 			.orElseThrow(RuntimeException::new);
 	}
+
 }
 
