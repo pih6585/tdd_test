@@ -2,13 +2,13 @@ package dice.domain;
 
 import java.util.Objects;
 
-public class PlayerNumber {
+public class Number {
 	private static final int MIN_NUMBER = 2;
 	private static final int MAX_NUMBER = 4;
 	private static final String LENGTH_ERROR_MESSAGE = "입력가능한 숫자가 아닙니다.";
 	private final int number;
 
-	public PlayerNumber(int number) {
+	public Number(int number) {
 		checkNumberLength(number);
 		this.number = number;
 	}
@@ -29,7 +29,7 @@ public class PlayerNumber {
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		PlayerNumber number1 = (PlayerNumber)o;
+		Number number1 = (Number)o;
 		return number == number1.number;
 	}
 

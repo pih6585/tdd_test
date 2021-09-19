@@ -2,19 +2,18 @@ package dice.view;
 
 import java.util.List;
 
-import dice.domain.PlayerScore;
+import dice.domain.Player;
 
 public class ResultView {
 
 	public static final String RESULT_MESSAGE = "실행결과";
 
-	public static void resultGameState(List<PlayerScore> scoreByPlayer) {
+	public static void resultGameState(List<Player> players) {
 		System.out.println(RESULT_MESSAGE);
-		for (int i = 0; i < scoreByPlayer.size(); i++) {
-			System.out.println(scoreByPlayer.get(i).getName() + " : " +
-				scoreByPlayer.get(i).getFirstDice() + " - " +
-				scoreByPlayer.get(i).getSecondDice() + " : " +
-				scoreByPlayer.get(i).getScore());
+		for (int i = 0; i < players.size(); i++) {
+			System.out.println(players.get(i).findName() + " : " +
+				players.get(i).findDice() + " : " +
+				players.get(i).findDiceSum());
 		}
 	}
 
