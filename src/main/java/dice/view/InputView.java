@@ -19,9 +19,9 @@ public class InputView {
 		return checkInputType();
 	}
 
-	public static List<Name> inputName(Number number) {
+	public static List<Name> inputNames(Number number) {
 		List<Name> names = new ArrayList<>();
-		for(int i=0; i<number.getNumber(); i++){
+		for (int i = 0; i < number.getNumber(); i++) {
 			System.out.println(PLAYER_NAME_MESSAGE);
 			names.add(new Name(scanner.nextLine()));
 		}
@@ -37,7 +37,6 @@ public class InputView {
 
 		return number;
 	}
-
 
 	private static List<Name> checkNamesOverlap(List<Name> names) {
 		if (names.size() != names.stream().distinct().count()) {
