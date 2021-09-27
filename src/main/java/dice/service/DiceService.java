@@ -1,7 +1,6 @@
 package dice.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -10,37 +9,31 @@ import dice.domain.Dice;
 import dice.domain.Name;
 import dice.domain.DiceResult;
 import dice.domain.Player;
+import dice.domain.Players;
 
 public class DiceService {
 
 	private static final int START_NUMBER = 0;
 
-	public static List<Player> diceGamePlay(List<Name> names){
+	public static Players diceGamePlay(List<Name> names) {
 		List<Player> players = new ArrayList<>();
-		for(int i=START_NUMBER; i<names.size(); i++){
+		for (int i = START_NUMBER; i < names.size(); i++) {
 			players.add(new Player(names.get(i), new Dice(diceRoll(), diceRoll())));
 		}
 
-		return Collections.unmodifiableList(players);
+		return new Players(players);
 	}
 
-	public static String diceGameWinner(List<Player> players){
-		int scoreMax = getPlayerByScoreMax(players);
-		return IntStream.range(START_NUMBER, players.size())
-			.filter(i -> players.get(i).findDiceSum() == scoreMax)
-			.mapToObj(i -> players.get(i).getName().getName())
+	public static String diceGameWinner(Players players) {
+		int scoreMax = players.findScoreMax();
+		return IntStream.range(START_NUMBER, players.findSize())
+			.filter(i -> players.player(i).findDiceSum() == scoreMax)
+			.mapToObj(i -> players.player(i).findName())
 			.collect(Collectors.joining(","));
 	}
 
-	private static int diceRoll(){
-		return new DiceResult().getDiceResult();
-	}
-
-	private static int getPlayerByScoreMax(List<Player> players){
-		return players.stream()
-			.mapToInt(v -> v.findDiceSum())
-			.max()
-			.orElseThrow(RuntimeException::new);
+	private static int diceRoll() {
+		return DiceResult.randomResult();
 	}
 
 }
