@@ -16,19 +16,17 @@ public class Name {
 		this.name = name;
 	}
 
-	private static String checkNameLength(String name) {
+	private static void checkNameLength(String name) {
 		if (name.length() < MIN_LENGTH_NAME || name.length() > MAX_LENGTH_NAME) {
 			throw new IllegalArgumentException(NAME_LENGTH_ERROR_MESSAGE);
 		}
-		return checkNameLanguage(name);
 	}
 
-	private static String checkNameLanguage(String name) {
+	private static void checkNameLanguage(String name) {
 		boolean english = name.matches("^[a-zA-Z]*$");
 		if (!english) {
 			throw new IllegalArgumentException(LANGUAGE_ERROR_MESSAGE);
 		}
-		return name;
 	}
 
 	public String getName() {
