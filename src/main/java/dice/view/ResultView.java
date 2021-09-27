@@ -1,19 +1,21 @@
 package dice.view;
 
-import java.util.List;
-
 import dice.domain.Player;
+import dice.domain.Players;
 
 public class ResultView {
 
-	public static final String RESULT_MESSAGE = "실행결과";
+	private static final String RESULT_MESSAGE = "실행결과";
+	private static final String COLON = " : ";
+	private static final String HYPHEN = " - ";
 
-	public static void resultGameState(List<Player> players) {
+	public static void resultGameScore(Players players) {
 		System.out.println(RESULT_MESSAGE);
-		for (int i = 0; i < players.size(); i++) {
-			System.out.println(players.get(i).findName() + " : " +
-				players.get(i).findDice() + " : " +
-				players.get(i).findDiceSum());
+		for (int i = 0; i < players.findSize(); i++) {
+			System.out.println(players.player(i).findName() + COLON +
+				players.player(i).findFirstDice() + HYPHEN +
+				players.player(i).findSecondDice() + COLON +
+				players.player(i).findDiceSum());
 		}
 	}
 
